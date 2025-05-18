@@ -1,0 +1,87 @@
+
+[
+  {"name": "Central Police Station", "lat": 12.9716, "lon": 77.5946},
+  {"name": "Koramangala Police Station", "lat": 12.9352, "lon": 77.6245},
+  {"name": "Indiranagar Police Station", "lat": 12.9784, "lon": 77.6409},
+  {"name": "Malleswaram Police Station", "lat": 13.0121, "lon": 77.5696},
+  {
+    "name": "18 Radhakrishna Temple Police Station, Hebbal",
+    "lat": 13.039596,
+    "lon": 77.564157
+},
+{
+    "name": "19 Sanjaynagar Police Station, Hebbal",
+    "lat": 13.0338,
+    "lon": 77.576072
+},
+{
+    "name": "20 Ganganagar Police Station, Hebbal",
+    "lat": 13.026323,
+    "lon": 77.584997
+},
+{
+    "name": "21 Hebbala Police Station, Hebbal",
+    "lat": 13.030312,
+    "lon": 77.587162
+},
+{
+    "name": "22 Nagenahalli Police Station, Hebbal",
+    "lat": 13.026224,
+    "lon": 77.585123
+},
+{
+    "name": "34 Gangenahalli Police Station, Hebbal",
+    "lat": 13.020334,
+    "lon": 77.592086
+},
+{
+  "name": "46 Jayachamarajendra Nagar, Hebbal",
+  "lat": 13.00634,
+  "lon": 77.593513
+},
+{
+  "name": "62 Ramaswamy Palya, Shivajinagar",
+  "lat": 13.001508,
+  "lon": 77.601396
+},
+{
+  "name": "63 Jayamahal, Shivajinagar",
+  "lat": 13.00153,
+  "lon": 77.601542
+},
+{
+  "name": "91 Bharathinagar, Shivajinagar",
+  "lat": 12.98429,
+  "lon": 77.605431
+},
+{"name": "39 Chokkasandra", "lat": 13.03724, "lon": 77.51408},
+{"name": "41 Peenya Industrial Area", "lat": 13.01689, "lon": 77.514081},
+{"name": "70 Rajagopalanagar", "lat": 13.0044, "lon": 77.5051},
+{"name": "71 Heggenahalli", "lat": 13.00276, "lon": 77.504477},
+{"name": "12 Shettyhalli", "lat": 13.06786, "lon": 77.52571},
+{"name": "13 Mallasandra", "lat": 13.05892, "lon": 77.508221},
+{"name": "14 Baagalakunte", "lat": 13.05245, "lon": 77.495744},
+{"name": "15 T.Dasarahalli", "lat": 13.05228, "lon": 77.495584},
+{"name": "16 Jalahalli", "lat": 13.049133, "lon": 77.548392},
+{"name": "17 J.P.Park", "lat": 13.037234, "lon": 77.553064},
+{"name": "37 Yeshwanthpura", "lat": 13.027472, "lon": 77.553444},
+{"name": "38 H.M.T", "lat": 13.028967, "lon": 77.529839},
+{"name": "73 Kottegepalya", "lat": 12.97953, "lon": 77.516823},
+{"name": "160 Rajarajeshwarinagar", "lat": 12.925145, "lon": 77.527429},
+{"name": "40 Doddabidarakalu", "lat": 13.016372, "lon": 77.483332},
+{"name": "72 Herohalli", "lat": 12.98602, "lon": 77.477654},
+{"name": "130 Ullalu", "lat": 12.950406, "lon": 77.491886},
+{"name": "159 Kengeri", "lat": 12.914341, "lon": 77.481742},
+{"name": "198 Hemigepura", "lat": 12.903698, "lon": 77.510864},
+{"name": "1 Kempegowda Ward", "lat": 13.097495, "lon": 77.599465},
+{"name": "2 Chowdeshwari Ward", "lat": 13.104665, "lon": 77.594842},
+{"name": "3 Attur", "lat": 13.100741, "lon": 77.576676},
+{"name": "4 Yelahanka Satellite Town", "lat": 13.099375, "lon": 77.588232},
+{"name": "5 Jakkur", "lat": 13.10356, "lon": 77.616241},
+{"name": "6 Thanisandra", "lat": 13.073584, "lon": 77.633839},
+{"name": "7 Bytarayanapura", "lat": 13.057452, "lon": 77.597653},
+{"name": "8 Kodigehalli", "lat": 13.053472, "lon": 77.574826}
+
+
+
+]

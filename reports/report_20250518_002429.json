@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-05-18T00:23:46.329840",
+  "violations": {
+    "7465NTNJA7": {
+      "helmet_violations": [],
+      "speed_violations": [
+        {
+          "timestamp": "2025-05-18T00:23:35.629840",
+          "speed": 139.6725011968034
+        }
+      ],
+      "last_seen": "2025-05-18T00:23:35.629840"
+    },
+    "7405NN997": {
+      "helmet_violations": [],
+      "speed_violations": [
+        {
+          "timestamp": "2025-05-18T00:23:35.796507",
+          "speed": 188.98355112713736
+        }
+      ],
+      "last_seen": "2025-05-18T00:23:35.796507"
+    }
+  },
+  "summary": {
+    "total_violations": 2,
+    "helmet_violations": 0,
+    "speed_violations": 2
+  },
+  "graph_path": "graphs/violations_20250518_002428.png"
+}

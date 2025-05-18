@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic AI Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background: #f0f2f5;
+        }
+        h1 { 
+            color: #1a237e; 
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section { 
+            background: white;
+            margin-bottom: 30px; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin-bottom: 20px;
+            background: white;
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background: #1a237e; 
+            color: white;
+        }
+        tr:nth-child(even) { 
+            background: #f8f9fa; 
+        }
+        .summary-box { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .summary-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .graph-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .graph-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .last-updated {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-active {
+            background-color: #4CAF50;
+        }
+        .status-inactive {
+            background-color: #f44336;
+        }
+        /* Tab styles */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #ccc;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic AI Dashboard</h1>
+    
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'Summary')">Summary</button>
+        <button class="tablinks" onclick="openTab(event, 'SpeedViolations')">Speed Violations</button>
+        <button class="tablinks" onclick="openTab(event, 'HelmetViolations')">Helmet Violations</button>
+        <button class="tablinks" onclick="openTab(event, 'ViolationsOverTime')">Violations Over Time</button>
+        <button class="tablinks" onclick="openTab(event, 'SafetyMap')">Safety Map</button>
+    </div>
+
+    <div id="Summary" class="tabcontent" style="display: block;">
+        <div class="section summary-box" id="summary-section">
+            <h2>Summary</h2>
+            <div id="summary"></div>
+            <div class="last-updated" id="last-updated"></div>
+        </div>
+    </div>
+
+    <div id="SpeedViolations" class="tabcontent">
+        <div class="section">
+            <h2>Speed Violations</h2>
+            <table id="speed-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Lane</th>
+                        <th>Speed (km/h)</th>
+                        <th>Number Plate</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="HelmetViolations" class="tabcontent">
+        <div class="section">
+            <h2>Helmet Violations</h2>
+            <table id="helmet-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Lane</th>
+                        <th>Confidence</th>
+                        <th>Class</th>
+                        <th>Bounding Box</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="ViolationsOverTime" class="tabcontent">
+        <div class="section">
+            <h2>Violations Over Time</h2>
+            <div class="graph-container">
+                <img src="static/violations_graph.png" alt="Violations Graph" id="violations-graph">
+            </div>
+        </div>
+    </div>
+
+    <div id="SafetyMap" class="tabcontent">
+        <div class="section">
+            <h2>Safety Map</h2>
+            <iframe src="/safety" style="width: 100%; height: 600px; border: none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+    let lastUpdateTime = null;
+
+    function updateDashboard() {
+        // Fetch and display summary
+        fetch('/api/summary')
+            .then(r => r.json())
+            .then(data => {
+                let html = '';
+                html += `<div class="summary-item"><b>Total Speed Violations:</b> ${data.total_speed_violations}</div>`;
+                html += `<div class="summary-item"><b>Total Helmet Violations:</b> ${data.total_helmet_violations}</div>`;
+                html += `<div class="summary-item"><b>Speed Violations Per Lane:</b> ${JSON.stringify(data.speed_violations_per_lane)}</div>`;
+                html += `<div class="summary-item"><b>Helmet Violations Per Lane:</b> ${JSON.stringify(data.helmet_violations_per_lane)}</div>`;
+                document.getElementById('summary').innerHTML = html;
+                
+                // Update last updated time
+                if (data.last_updated) {
+                    lastUpdateTime = data.last_updated;
+                    document.getElementById('last-updated').innerHTML = 
+                        `<span class="status-indicator status-active"></span>Last updated: ${data.last_updated}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('last-updated').innerHTML = 
+                    `<span class="status-indicator status-inactive"></span>Error updating data`;
+                console.error('Error fetching summary:', error);
+            });
+
+        // Speed violations table
+        fetch('/api/speed_violations')
+            .then(r => r.json())
+            .then(data => {
+                let rows = data.map(v => 
+                    `<tr>
+                        <td>${v.time}</td>
+                        <td>${v.lane}</td>
+                        <td>${v.speed.toFixed(1)}</td>
+                        <td>${v.plate || 'N/A'}</td>
+                    </tr>`
+                ).join('');
+                document.querySelector('#speed-table tbody').innerHTML = rows;
+            })
+            .catch(error => console.error('Error fetching speed violations:', error));
+
+        // Helmet violations table
+        fetch('/api/helmet_violations')
+            .then(r => r.json())
+            .then(data => {
+                let rows = data.map(v => 
+                    `<tr>
+                        <td>${v.time}</td>
+                        <td>${v.lane}</td>
+                        <td>${v.confidence.toFixed(2)}</td>
+                        <td>${v.class}</td>
+                        <td>${v.bbox.join(', ')}</td>
+                    </tr>`
+                ).join('');
+                document.querySelector('#helmet-table tbody').innerHTML = rows;
+            })
+            .catch(error => console.error('Error fetching helmet violations:', error));
+
+        // Update graph with timestamp to prevent caching
+        document.getElementById('violations-graph').src = '/violations_graph.png?' + new Date().getTime();
+    }
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Update dashboard every 5 seconds
+    updateDashboard();
+    setInterval(updateDashboard, 5000);
+    </script>
+</body>
+</html> 

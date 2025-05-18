@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bangalore Police & Crime Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
+</head>
+<body>
+
+<h2>Bangalore Police Stations & Crime Locations</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  const map = L.map('map').setView([12.905, 77.555], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Define marker icons
+  const blueIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  const redIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  // Police stations data
+  const policeStations = {{ police_stations | tojson }};
+
+policeStations.forEach(station => {
+  const lat = station.lat;
+  const lon = station.lon;
+
+  // Create a circle around each police station
+  const circle = L.circle([lat, lon], {
+    color: 'blue',           // border color
+    fillColor: 'blue',       // fill color
+    fillOpacity: 0.3,        // make it slightly transparent
+    radius: 200              // radius in meters (adjust as needed)
+  }).addTo(map);
+
+  // Bind tooltip and popup
+  circle.bindPopup(`<b>Police Station:</b> ${station.name}`);
+  circle.bindTooltip(station.name, { permanent: false, direction: 'top', offset: [0, -10] });
+});
+
+
+  // Crime data (assault)
+  const crimes = [
+    { type: 'assault', lat: 12.88744307, lon: 77.56855708 },
+    { type: 'assault', lat: 12.911738, lon: 77.556877 },
+    { type: 'assault', lat: 12.89033243, lon: 77.56334831 },
+    { type: 'assault', lat: 12.91707248, lon: 77.54891947 },
+    { type: 'assault', lat: 12.90518454, lon: 77.54469773 },
+    { type: 'assault', lat: 12.90557877, lon: 77.55645958 },
+    {"type": "assault", "lat": 12.920604, "lon": 77.520557},
+    {"type": "murder", "lat": 12.940662, "lon": 77.574095},
+    {"type": "assault", "lat": 12.93878218, "lon": 77.57956109},
+    {"type": "murder", "lat": 12.9399013, "lon": 77.57337112},
+    {"type": "assault", "lat": 12.944557, "lon": 77.57758},
+    {"type": "murder", "lat": 12.9076508, "lon": 77.5951967},
+    {"type": "assault", "lat": 12.9076508, "lon": 77.5951967},
+    {"type": "murder", "lat": 12.9030543, "lon": 77.5813948},
+    {"type": "assault", "lat": 12.9036647, "lon": 77.5785439},
+    {"type": "murder", "lat": 12.9004589, "lon": 77.5684636},
+    {"type": "assault", "lat": 12.909427, "lon": 77.5706543},
+    {"type": "murder", "lat": 12.9039655, "lon": 77.5804308},
+    {"type": "assault", "lat": 12.9039653, "lon": 77.5738647},
+    {"type": "murder", "lat": 12.9124543, "lon": 77.5737283},
+    {"type": "assault", "lat": 12.9108342, "lon": 77.5866704},
+    {"type": "murder", "lat": 12.9071236, "lon": 77.583816},
+    {"type": "assault", "lat": 12.917125, "lon": 77.568519},
+    {"type": "murder", "lat": 12.915422, "lon": 77.562005},
+{"type": "murder", "lat": 12.859739, "lon": 77.562719},
+  {"type": "murder", "lat": 12.862041, "lon": 77.563487},
+  {"type": "murder", "lat": 12.893051, "lon": 77.543007},
+  {"type": "murder", "lat": 12.879223, "lon": 77.567169},
+  {"type": "murder", "lat": 12.882152, "lon": 77.565325},
+  {"type": "murder", "lat": 12.84488, "lon": 77.583729},
+  {"type": "murder", "lat": 12.890277, "lon": 77.57144},
+  {"type": "murder", "lat": 12.885583, "lon": 77.57054},
+  {"type": "murder", "lat": 12.889932, "lon": 77.57465},
+  {"type": "murder", "lat": 12.861345, "lon": 77.579767},
+  {"type": "murder", "lat": 12.845887, "lon": 77.583885},
+  {"type": "murder", "lat": 12.873733, "lon": 77.579546},
+  {"type": "murder", "lat": 12.899989, "lon": 77.573775},
+  {"type": "murder", "lat": 12.875176, "lon": 77.57889},
+  {"type": "murder", "lat": 12.898898, "lon": 77.576405},
+  {"type": "murder", "lat": 12.906331, "lon": 77.59179},
+  {"type": "murder", "lat": 12.90903, "lon": 77.58764},
+  {"type": "murder", "lat": 12.906448, "lon": 77.587569},
+  {"type": "murder", "lat": 12.89643, "lon": 77.578607},
+  {"type": "murder", "lat": 12.901612, "lon": 77.586583}
+  ];
+
+crimes.forEach(crime => {
+  const lat = crime.lat;
+  const lon = crime.lon;
+
+  const circle = L.circle([lat, lon], {
+    color: 'red',
+    fillColor: 'red',
+    fillOpacity: 0.3,
+    weight: 1,
+    radius: 150   // radius in meters
+  }).addTo(map);
+
+  circle.bindPopup(`
+    <b>Crime Type:</b> ${crime.type || 'Unknown'}<br>
+  `);
+});
+
+</script>
+
+</body>
+</html> 

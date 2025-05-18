@@ -1,0 +1,11 @@
+{
+  "total_speed_violations": 3063,
+  "total_helmet_violations": 0,
+  "speed_violations_per_lane": {
+    "3": 674,
+    "2": 1272,
+    "4": 293,
+    "1": 824
+  },
+  "helmet_violations_per_lane": {}
+}

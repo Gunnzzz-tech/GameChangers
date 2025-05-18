@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-05-17T20:07:00.431047",
+  "violations": {},
+  "summary": {
+    "total_violations": 0,
+    "helmet_violations": 0,
+    "speed_violations": 0
+  },
+  "graph_path": "graphs\\violations_20250517_200735.png"
+}
